@@ -1,5 +1,4 @@
 import requests
-import streamlit as st
 
 def score_resume(resume, jd):
     prompt = f"""Rate the following resume against the job description.
