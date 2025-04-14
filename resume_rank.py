@@ -1,33 +1,32 @@
-from openai import OpenAI
-import os
-
-# Get API key from environment (Streamlit Secrets)
-client = OpenAI(api_key=os.getenv("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"))
+import requests
 
 def score_resume(resume, jd):
-    prompt = f"""
-You are a hiring expert. Rate the following resume against the job description.
-Provide a score out of 10 and 3 suggestions for improvement.
+    prompt = f"""Rate the following resume against the job description.
+Provide a score out of 10 and 3 suggestions.
 
 Resume:
 {resume}
 
 Job Description:
 {jd}
-
-Return the result in this format:
-Score: X/10
-Suggestions:
-1.
-2.
-3.
 """
 
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
+    API_URL = "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106"
 
-    return response.choices[0].message.content
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "inputs": prompt,
+        "parameters": {
+            "do_sample": False,
+            "max_new_tokens": 300
+        }
+    }
+
+    response = requests.post(API_URL, headers=headers, json=payload)
+    output = response.json()
+
+    return output[0]["generated_text"].replace(prompt, "").strip()
