@@ -27,11 +27,9 @@ Job Description:
     }
 
     response = requests.post(API_URL, headers=headers, json=payload)
-    output = response.json()
-
-   try:
-    return output[0]["generated_text"].replace(prompt, "").strip()
-except (KeyError, IndexError, TypeError):
-    print(output)  # Useful in logs
-    st.write("Raw response:", output)
-    return "⚠️ Error: The AI model didn’t return a valid response. Try again or use shorter input."
+    
+    try:
+        output = response.json()
+        return output[0]["generated_text"].replace(prompt, "").strip()
+    except Exception as e:
+        return f"⚠️ Error: Could not generate response. Details: {str(e)}"
