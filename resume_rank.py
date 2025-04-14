@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 def score_resume(resume, jd):
     prompt = f"""Rate the following resume against the job description.
@@ -32,4 +33,6 @@ Job Description:
    try:
     return output[0]["generated_text"].replace(prompt, "").strip()
 except (KeyError, IndexError, TypeError):
+    print(output)  # Useful in logs
+    st.write("Raw response:", output)
     return "⚠️ Error: The AI model didn’t return a valid response. Try again or use shorter input."
