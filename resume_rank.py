@@ -1,11 +1,13 @@
 from openai import OpenAI
+import os
 
-client = OpenAI(api_key="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")
+# Get API key from environment (Streamlit Secrets)
+client = OpenAI(api_key=os.getenv("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"))
 
 def score_resume(resume, jd):
     prompt = f"""
-Act as an expert HR recruiter. Analyze this resume against the given job description.
-Provide a matching score out of 10 and give 3 improvement tips.
+You are a hiring expert. Rate the following resume against the job description.
+Provide a score out of 10 and 3 suggestions for improvement.
 
 Resume:
 {resume}
@@ -13,18 +15,19 @@ Resume:
 Job Description:
 {jd}
 
-Return clearly:
+Return the result in this format:
 Score: X/10
 Suggestions:
 1.
 2.
 3.
 """
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": prompt}]
-)
 
-print(response.choices[0].message.content)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
 
-    return response['choices'][0]['message']['content']
+    return response.choices[0].message.content
