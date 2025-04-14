@@ -14,6 +14,7 @@ Job Description:
     API_URL = "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106"
 
     headers = {
+        "Authorization": "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",
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
@@ -27,12 +28,9 @@ Job Description:
     }
 
     response = requests.post(API_URL, headers=headers, json=payload)
-
+    
     try:
         output = response.json()
-        # Show raw response in Streamlit for debugging (optional)
-        # st.write("Raw response:", output)
-
         if isinstance(output, list) and "generated_text" in output[0]:
             return output[0]["generated_text"].replace(prompt, "").strip()
         elif "error" in output:
