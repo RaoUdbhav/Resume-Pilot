@@ -1,8 +1,6 @@
-import openai
-import os
+from openai import OpenAI
 
-# entered OpenAI API key here
-openai.api_key = "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"  # Replaced with actual key
+client = OpenAI(api_key="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")
 
 def score_resume(resume, jd):
     prompt = f"""
@@ -22,9 +20,11 @@ Suggestions:
 2.
 3.
 """
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
 
     return response['choices'][0]['message']['content']
