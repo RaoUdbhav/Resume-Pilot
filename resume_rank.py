@@ -13,11 +13,14 @@ Job Description:
 
     API_URL = "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106"
 
+    import os
+
     headers = {
-        "Authorization": "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",
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
+    "Authorization": f"Bearer {os.getenv('HF_TOKEN')}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+                }
+
 
     payload = {
         "inputs": prompt,
