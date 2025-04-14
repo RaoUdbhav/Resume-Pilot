@@ -26,7 +26,7 @@ Job Description:
         }
     }
 
-        response = requests.post(API_URL, headers=headers, json=payload)
+    response = requests.post(API_URL, headers=headers, json=payload)
 
     try:
         output = response.json()
