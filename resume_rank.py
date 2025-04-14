@@ -22,7 +22,6 @@ Job Description:
     "Content-Type": "application/json"
                 }
 
-
     payload = {
     "inputs": f"""Rate this resume against the job description.
     Give a score out of 10 and 3 suggestions for improvement.
@@ -33,9 +32,10 @@ Job Description:
     Job Description:
     {jd}""",
     "parameters": {
-        "max_new_tokens": 300
+        "max_new_tokens": 200  # ✅ Safe limit
         }
     }
+
 
 
     response = requests.post(API_URL, headers=headers, json=payload)
