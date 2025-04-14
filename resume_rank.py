@@ -11,7 +11,8 @@ Job Description:
 {jd}
 """
 
-    API_URL = "https://api-inference.huggingface.co/models/openchat/openchat-3.5-0106"
+    API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
+
 
     import os
 
