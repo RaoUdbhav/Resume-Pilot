@@ -12,7 +12,7 @@ Instructions:
 
 Format your response like this:
 
-Score: X/10  
+Score: 0 To 10/10  
 Reason: ...  
 Suggestions:  
 1. ...  
