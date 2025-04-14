@@ -11,7 +11,7 @@ Job Description:
 {jd}
 """
 
-    API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
+    API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-large"
 
 
     import os
@@ -24,12 +24,19 @@ Job Description:
 
 
     payload = {
-        "inputs": prompt,
-        "parameters": {
-            "do_sample": False,
-            "max_new_tokens": 300
+    "inputs": f"""Rate this resume against the job description.
+    Give a score out of 10 and 3 suggestions for improvement.
+
+    Resume:
+    {resume}
+
+    Job Description:
+    {jd}""",
+    "parameters": {
+        "max_new_tokens": 300
         }
     }
+
 
     response = requests.post(API_URL, headers=headers, json=payload)
     
